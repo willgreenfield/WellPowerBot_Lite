@@ -2,14 +2,14 @@
 import React from 'react';
 import './OrderEntry.css';
 
-
+console.log("Creating OrderEntry");
+//!!bug, OrderEntry never runs
 const OrderEntry = ({ order, assignDriver, onCancel, onFinished }) => {
-  console.log("Generating order entry");
     return(
       <div className="order-entry">
       <div className="order-details">
         <h4>
-        Order <b>#{order.orderID}</b> - Status: <b>{order.status}</b>
+        Order <b>#{order.orderNumber}</b> - Status: <b>{order.status}</b>
         </h4>
         <p>Phone Number: <b>{order.phone}</b></p>
         <p><b>{order.waterOrdered}</b> Jerry Can(s)</p>
@@ -26,5 +26,5 @@ const OrderEntry = ({ order, assignDriver, onCancel, onFinished }) => {
   );
 };
 
-console.log("Order entry generation complete")
+console.log("Exporting OrderEntry")
 export default OrderEntry;
