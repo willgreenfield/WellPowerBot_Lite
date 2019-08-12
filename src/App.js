@@ -4,15 +4,19 @@ import * as firebase from 'firebase';
 
 import OrderEntry from './components/OrderEntry';
 
+const NEW_ORDERS_DATABASE_REF = '/customerRequests';
+
 class App extends Component {
 
   constructor() {
     super();
     this.state = { orders: [] };
+    console.log("Initial orders array initialized");
   }
 
   componentDidMount() {
-    const ordersRef = firebase.database().ref('/BotOrders');
+    console.log("Running componentDidMount()");
+    const ordersRef = firebase.database().ref(NEW_ORDERS_DATABASE_REF);
     ordersRef.on('value', snap => {
       let orders = snap.val();
       let newState = [];
@@ -24,29 +28,22 @@ class App extends Component {
           price: orders[order].price,
           waterOrdered: orders[order].waterOrdered
         });
+        console.log("New state pushed (one iteration)");
       }
       this.setState({ newState });
+      console.log("New state set");
     });
   }
 
-  // snapshotToArray(snap) {
-  //   var returnArray = [];
-  //   snapshot.forEach(function(childSnapshot) {
-  //     var item =childSnapshot.val();
-  //     item.key = childSnapshot.key;
-  //     returnArr.push(item);
-  //   });
-  //   return returnArray;
-  // };
-
   render() {
+    console.log("Rendering");
     return (
       <div className="App">
         <h1>WellPower Orders</h1>
         <div className="order-list">
           {this.state.orders.map(order => (
             <OrderEntry
-              key={order.number}
+              key={order.orderID}
               order={order}
               onCancel={this.cancelOrder}
               onFinished={this.finishOrder}
