@@ -13,7 +13,7 @@ class App extends Component {
     this.finishOrder = this.finishOrder.bind(this);
     this.cancelOrder = this.cancelOrder.bind(this);
    //  this.orderService.on('updated', this.updateOrders);
-    this.state = { orders: [] };
+    this.state = { ordersArr: [] };
     console.log("Initial orders array initialized");
   }
 
@@ -21,31 +21,28 @@ class App extends Component {
     console.log("Running componentDidMount()");
     const ordersRef = firebase.database().ref(NEW_ORDERS_DATABASE_REF);
     ordersRef.on('value', snap => {
-      let orders = snap.val();
-      let newState = [];
+      let ordersObj = snap.val();
+      console.log(ordersObj);
+      let ordersArr = [];
       var count = 0; //number of orders in database
 
       //Convert firebase object to array
-      for (let order in orders) {
+      for (let order in ordersObj) {
         count++;
-        newState.push({
+        ordersArr.push({
           orderNumber: count,
-          phone: orders[order].phone,
-          location: orders[order].location,
-          price: orders[order].price,
-          waterOrdered: orders[order].waterOrdered,
-          status: orders[order].orderStatus
+          phone: ordersObj[order].phone,
+          location: ordersObj[order].location,
+          price: ordersObj[order].price,
+          waterOrdered: ordersObj[order].waterOrdered,
+          status: ordersObj[order].orderStatus
         });
-
+        console.log(ordersArr);
         console.log("order entry added to newState");
       }
-      this.setState({ newState });
+      this.setState({ ordersArr });
       console.log("New state set");
     });
-  }
-
-  updateOrders({ orders }) {
-    this.setState({ orders});
   }
 
   assignDriver(order) {
@@ -66,16 +63,15 @@ class App extends Component {
       <div role="main">
         <h1>WellPower Orders</h1>
         <div className="order-list">
-          {this.state.orders.map(entry => (
+          {this.state.ordersArr.map(entry => (
             <OrderEntry
-              key={entry.number}
+              key={entry.orderNumber}
               order={entry}
               onCancel={this.cancelOrder}
               onFinished={this.finishOrder}
               assignDriver={this.assignDriver}
-
             />
-        ))}
+          ))}
         </div>
       </div>
     );

@@ -4,12 +4,13 @@ import './OrderEntry.css';
 
 console.log("Creating OrderEntry");
 //!!bug, OrderEntry never runs
-const OrderEntry = ({ order, assignDriver, onCancel, onFinished }) => {
+const OrderEntry = ({key, order, onCancel, onFinished, assignDriver}) => {
+  console.log("inside OrderEntry");
     return(
     <div className="order-entry">
       <div className="order-details">
         <h4>
-          Order <b>#{order.number}</b> - Status: <b>{order.orderStatus}</b>
+          Order <b>#{key}</b> - Status: <b>{order.orderStatus}</b>
         </h4>
         <p>Phone Number: <b>{order.phone}</b></p>
         <p><b>{order.waterOrdered}</b> Jerry Can(s)</p>
