@@ -6,10 +6,10 @@ console.log("Creating OrderEntry");
 //!!bug, OrderEntry never runs
 const OrderEntry = ({ order, assignDriver, onCancel, onFinished }) => {
     return(
-      <div className="order-entry">
+    <div className="order-entry">
       <div className="order-details">
         <h4>
-        Order <b>#{order.orderNumber}</b> - Status: <b>{order.status}</b>
+          Order <b>#{order.number}</b> - Status: <b>{order.orderStatus}</b>
         </h4>
         <p>Phone Number: <b>{order.phone}</b></p>
         <p><b>{order.waterOrdered}</b> Jerry Can(s)</p>
@@ -19,7 +19,7 @@ const OrderEntry = ({ order, assignDriver, onCancel, onFinished }) => {
         <button onClick={() => assignDriver(order)}>Assign Driver</button>
         <button onClick={() => onFinished(order)}>Finish Order</button>
         <button className="button-clear" onClick={() => onCancel(order)}>
-        Cancel Order
+          Cancel Order
         </button>
       </div>
     </div>
