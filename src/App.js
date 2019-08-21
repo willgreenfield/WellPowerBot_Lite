@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as firebase from 'firebase';
-
 import OrderEntry from './components/OrderEntry';
 
-const NEW_ORDERS_DATABASE_REF = '/customerRequests';
+const NEW_ORDERS_DATABASE_REF = '/requestQueue';
 
 class App extends Component {
 
@@ -24,9 +23,10 @@ class App extends Component {
       let ordersObj = snap.val();
       console.log(ordersObj);
       let ordersArr = [];
-      var count = 0; //number of orders in database
+
 
       //Convert firebase object to array
+      var count = 0;
       for (let order in ordersObj) {
         count++;
         ordersArr.push({
@@ -35,9 +35,10 @@ class App extends Component {
           location: ordersObj[order].location,
           price: ordersObj[order].price,
           waterOrdered: ordersObj[order].waterOrdered,
-          status: ordersObj[order].orderStatus
+          status: ordersObj[order].orderStatus,
+          accepted: ordersObj[order].accepted
         });
-        console.log(ordersArr);
+        //console.log(ordersArr);
         console.log("order entry added to newState");
       }
       this.setState({ ordersArr });
@@ -50,11 +51,14 @@ class App extends Component {
   }
 
   finishOrder(order) {
-    console.log('Finish button');
+    console.log('Finish button for order '+ this.order.phone);
   }
 
   cancelOrder(order) {
     console.log('Cancel button');
+    var updates = {};
+  //  updates['/requestQueue/' + ]
+    return firebase.database().ref().update(updates);
   }
 
   render() {
@@ -65,7 +69,7 @@ class App extends Component {
         <div className="order-list">
           {this.state.ordersArr.map(entry => (
             <OrderEntry
-              key={entry.orderNumber}
+              key={entry.phone}
               order={entry}
               onCancel={this.cancelOrder}
               onFinished={this.finishOrder}

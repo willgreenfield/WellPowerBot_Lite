@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import * as firebase from 'firebase';
+import 'milligram/dist/milligram.css';
+
 
 var config = {
   apiKey: "AIzaSyCpZNMprYY96jPRURVkk_SMvcNFMNtuZa8",
