@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import * as firebase from 'firebase';
 import OrderEntry from './components/OrderEntry';
+import DriverEntry from './components/DriverEntry';
 
 const NEW_ORDERS_DATABASE_REF = '/requestQueue';
+const AVAILABLE_DRIVERS_REF = '/DriversAvailable';
 
 class App extends Component {
 
@@ -12,21 +14,35 @@ class App extends Component {
     this.finishOrder = this.finishOrder.bind(this);
     this.cancelOrder = this.cancelOrder.bind(this);
    //  this.orderService.on('updated', this.updateOrders);
-    this.state = { ordersArr: [] };
-    console.log("Initial orders array initialized");
+    this.state = { driversArr: [] , ordersArr: [] };
   }
 
   componentDidMount() {
-    console.log("Running componentDidMount()");
     const ordersRef = firebase.database().ref(NEW_ORDERS_DATABASE_REF);
+    const driversRef = firebase.database().ref(AVAILABLE_DRIVERS_REF);
+
+    //event: update to available drivers database
+    driversRef.on('value', snap => {
+      let driversObj = snap.val();
+      let driversArr = [];
+
+      //convert drivers object to array
+      for (let driver in driversObj){
+        driversArr.push({
+          ID: driversObj[driver].g
+        });
+      }
+      this.setState({ driversArr });
+    });
+
+    //event: update to current orders database
     ordersRef.on('value', snap => {
       let ordersObj = snap.val();
-      console.log(ordersObj);
+      //console.log(ordersObj);
       let ordersArr = [];
-
       var count = 0;
 
-      //Convert firebase object to array
+      //Convert orders object to array
       for (let order in ordersObj) {
         count++;
         ordersArr.push({
@@ -41,11 +57,8 @@ class App extends Component {
           orderedTime: ordersObj[order].orderedTime,
           accepted: ordersObj[order].accepted
         });
-        //console.log(ordersArr);
-        console.log("order entry added to newState");
       }
       this.setState({ ordersArr });
-      console.log("New state set");
     });
   }
 
@@ -54,21 +67,30 @@ class App extends Component {
   }
 
   finishOrder(order) {
-    console.log('Finish button for order '+ this.order.key);
+    console.log('Finish button for order ');
   }
 
   cancelOrder(order) {
     console.log('Cancel button');
     var updates = {};
-  //  updates['/requestQueue/' + ]
     return firebase.database().ref().update(updates);
   }
 
   render() {
-    console.log("Rendering");
     return (
       <div role="main">
-        <h1>WellPower Orders</h1>
+        <h1>WellPower Order Console</h1>
+
+        <div className="driver-list">
+        <h3> Drivers Online:  </h3>
+          {this.state.driversArr.map(entry => (
+            <DriverEntry
+              key={entry.key}
+              driver={entry}
+            />
+          ))}
+        </div>
+        <h3> Orders:  </h3>
         <div className="order-list">
           {this.state.ordersArr.map(entry => (
             <OrderEntry
@@ -85,5 +107,4 @@ class App extends Component {
   } //end of render()
 } //end of class App() extends component
 
-console.log("Exporting app");
 export default App;

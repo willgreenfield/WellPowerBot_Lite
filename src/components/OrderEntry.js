@@ -2,15 +2,12 @@
 import React from 'react';
 import './OrderEntry.css';
 
-console.log("Creating OrderEntry");
-//!!bug, OrderEntry never runs
 const OrderEntry = ({key, order, onCancel, onFinished, assignDriver}) => {
-  console.log("inside OrderEntry");
     return(
     <div className="order-entry">
       <div className="order-details">
         <h4>
-          Order <b>{order.key}</b>
+        Order <b>{order.key}</b>
         </h4>
         <p>Status: <b>{order.orderStatus}</b></p>
         <p>Water Ordered: <b>{order.waterOrdered}</b></p>
@@ -18,7 +15,6 @@ const OrderEntry = ({key, order, onCancel, onFinished, assignDriver}) => {
         <p>Latitude: <b>{order.latitude}</b></p>
         <p>Longitude: <b>{order.longitude}</b></p>
         <p>Phone Number: <b>{order.phoneNumber}</b></p>
-
 
       </div>
       <div className="order-options">
@@ -32,5 +28,4 @@ const OrderEntry = ({key, order, onCancel, onFinished, assignDriver}) => {
   );
 };
 
-console.log("Exporting OrderEntry")
 export default OrderEntry;
