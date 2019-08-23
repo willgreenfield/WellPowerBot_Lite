@@ -30,12 +30,15 @@ class App extends Component {
       for (let order in ordersObj) {
         count++;
         ordersArr.push({
-          orderNumber: count,
-          phone: ordersObj[order].phone,
+          key: count,
+          phoneNumber: ordersObj[order].phoneNumber,
           location: ordersObj[order].location,
+          latitude: ordersObj[order].latitude,
+          longitude: ordersObj[order].longitude,
           price: ordersObj[order].price,
           waterOrdered: ordersObj[order].waterOrdered,
           status: ordersObj[order].orderStatus,
+          orderedTime: ordersObj[order].orderedTime,
           accepted: ordersObj[order].accepted
         });
         //console.log(ordersArr);
@@ -69,7 +72,7 @@ class App extends Component {
         <div className="order-list">
           {this.state.ordersArr.map(entry => (
             <OrderEntry
-              key={entry.phone}
+              key={entry.key}
               order={entry}
               onCancel={this.cancelOrder}
               onFinished={this.finishOrder}

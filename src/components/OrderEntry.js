@@ -10,11 +10,16 @@ const OrderEntry = ({key, order, onCancel, onFinished, assignDriver}) => {
     <div className="order-entry">
       <div className="order-details">
         <h4>
-          Order <b>#{key}</b> - Status: <b>{order.orderStatus}</b>
+          Order <b>#{order.key}</b> - Time: <b>{order.orderedTime}</b>
         </h4>
-        <p>Phone Number: <b>{order.phone}</b></p>
-        <p><b>{order.waterOrdered}</b> Jerry Can(s)</p>
+        <p>Status: <b>{order.orderStatus}</b></p>
+        <p>Water Ordered: <b>{order.waterOrdered}</b></p>
         <p>Deliver to: <b>{order.location}</b></p>
+        <p>Latitude: <b>{order.latitude}</b></p>
+        <p>Longitude: <b>{order.longitude}</b></p>
+        <p>Phone Number: <b>{order.phoneNumber}</b></p>
+
+
       </div>
       <div className="order-options">
         <button onClick={() => assignDriver(order)}>Assign Driver</button>
