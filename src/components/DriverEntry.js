@@ -7,9 +7,8 @@ const DriverEntry = ({key, driver}) => {
     <div className="driver-entry">
       <div className="driver-details">
         <h4>
-        <b>{driver.key}</b>
+        <b>{driver.ID}</b>
         </h4>
-
       </div>
     </div>
   );

@@ -85,7 +85,7 @@ class App extends Component {
         <h3> Drivers Online:  </h3>
           {this.state.driversArr.map(entry => (
             <DriverEntry
-              key={entry.key}
+              key={entry.ID}
               driver={entry}
             />
           ))}
