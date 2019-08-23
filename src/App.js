@@ -24,13 +24,13 @@ class App extends Component {
       console.log(ordersObj);
       let ordersArr = [];
 
+      var count = 0;
 
       //Convert firebase object to array
-      var count = 0;
       for (let order in ordersObj) {
         count++;
         ordersArr.push({
-          key: count,
+          key: ordersObj[order].orderedTime,
           phoneNumber: ordersObj[order].phoneNumber,
           location: ordersObj[order].location,
           latitude: ordersObj[order].latitude,
@@ -54,7 +54,7 @@ class App extends Component {
   }
 
   finishOrder(order) {
-    console.log('Finish button for order '+ this.order.phone);
+    console.log('Finish button for order '+ this.order.key);
   }
 
   cancelOrder(order) {

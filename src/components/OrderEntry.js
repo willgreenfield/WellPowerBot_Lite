@@ -10,7 +10,7 @@ const OrderEntry = ({key, order, onCancel, onFinished, assignDriver}) => {
     <div className="order-entry">
       <div className="order-details">
         <h4>
-          Order <b>#{order.key}</b> - Time: <b>{order.orderedTime}</b>
+          Order <b>{order.key}</b>
         </h4>
         <p>Status: <b>{order.orderStatus}</b></p>
         <p>Water Ordered: <b>{order.waterOrdered}</b></p>
