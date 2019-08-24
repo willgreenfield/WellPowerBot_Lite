@@ -17,15 +17,19 @@ const OrderEntry = ({key, order, onCancel, onFinished, assignDriver}) => {
         <p>Phone Number: <b>{order.phoneNumber}</b></p>
 
       </div>
-      <div className="order-options">
-        <button onClick={() => assignDriver(order)}>Assign Driver</button>
-        <button onClick={() => onFinished(order)}>Finish Order</button>
-        <button className="button-clear" onClick={() => onCancel(order)}>
-          Cancel Order
-        </button>
-      </div>
+
     </div>
   );
 };
 
 export default OrderEntry;
+
+/*
+<div className="order-options">
+ <button onClick={() => assignDriver(order)}>Assign Driver</button>
+ <button onClick={() => onFinished(order)}>Finish Order</button>
+ <button className="button-clear" onClick={() => onCancel(order)}>
+   Cancel Order
+ </button>
+</div>
+*/
